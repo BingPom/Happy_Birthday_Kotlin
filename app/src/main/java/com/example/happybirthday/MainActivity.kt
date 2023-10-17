@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,7 +34,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BirthdayMessage("Happy Birthday Sam!", "From THB")
+                    BirthdayMessage(getString(R.string.happy_birthday_message),
+                        getString(R.string.from_message))
                 }
             }
         }
@@ -44,18 +45,18 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BirthdayMessage(message: String, from : String, modifier: Modifier = Modifier) {
     val imagen = painterResource(id = R.drawable.androidparty)
-    Box (
-
-    ){
+    Box (modifier){
+        Image(
+            painter = imagen,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F
+        )
         Column(
             verticalArrangement = Arrangement.Center,
             modifier = modifier
+                .fillMaxHeight()
         ) {
-            Image(
-                painter = imagen,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                )
             Text(
                 text = message,
                 fontSize = 100.sp,
@@ -67,8 +68,8 @@ fun BirthdayMessage(message: String, from : String, modifier: Modifier = Modifie
                 fontSize = 36.sp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .align(alignment = Alignment.End)
+                    .padding(16.dp),
+                textAlign = TextAlign.End
             )
         }
     }
